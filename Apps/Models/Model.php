@@ -1,6 +1,8 @@
 <?php
 
-namespace Models;
+namespace Apps\Models;
+
+use Apps\Libs\Database;  // Utilisation correcte du namespace pour Database
 
 abstract class Model
 {
@@ -9,7 +11,7 @@ abstract class Model
 
     public function __construct()
     {
-        $this->pdo = \Database::getPdo();
+        $this->pdo = Database::getPdo();  // Référence correcte à la classe Database
     }
 
     public function findAll(?string $order = ""): array
@@ -20,7 +22,6 @@ abstract class Model
         }
 
         $resultats = $this->pdo->query($sql);
-        // Search the result to extract the actual data
         $results = $resultats->fetchAll();
 
         return $results;
@@ -29,9 +30,7 @@ abstract class Model
     public function findOne(int $id)
     {
         $query = $this->pdo->prepare("SELECT * FROM `{$this->table}` WHERE id = :id");
-        // Execute the query, specifying parameter :weapon_id 
         $query->execute(['id' => $id]);
-        // Search the result to extract the actual article data
         $item = $query->fetch();
         return $item;
     }
