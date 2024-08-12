@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>STF - <?= $pageTitle ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/styles.css">
 </head>
 
 <body>
@@ -39,9 +39,14 @@
             </div>
         </div>
     </nav>
-    <?= $pageContent ?>
 
-    <footer class="bg-dark text-white text-center py-3">
+    <div class="wrapper">
+        <div class="content">
+            <?= $pageContent ?>
+        </div>
+    </div>
+
+    <footer>
         <div class="container">
             <p>&copy; 2023 Société de Tir de Farmoutier. All rights reserved.</p>
         </div>
