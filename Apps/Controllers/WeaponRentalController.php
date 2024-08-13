@@ -22,42 +22,41 @@ class WeaponRentalController extends Controller
     }
 
     public function show()
-{
-    // Instanciation du modèle des commentaires
-    $weaponModel = new \Apps\Models\WeaponRental();
+    {
+        // Instanciation du modèle des commentaires
+        $weaponModel = new \Apps\Models\WeaponRental();
 
-    /**
-     * 1. Récupération du paramètre "id" et vérification de celui-ci
-     */
-    $weapon_id = null;
+        /**
+         * 1. Récupération du paramètre "id" et vérification de celui-ci
+         */
+        $weapon_id = null;
 
-    // Si le paramètre 'id' existe et est un nombre entier, on le récupère
-    if (!empty($_GET['id']) && ctype_digit($_GET['id'])) {
-        $weapon_id = $_GET['id'];
+        // Si le paramètre 'id' existe et est un nombre entier, on le récupère
+        if (!empty($_GET['id']) && ctype_digit($_GET['id'])) {
+            $weapon_id = $_GET['id'];
+        }
+
+        // Si pas d'id valide, on arrête l'exécution
+        if (!$weapon_id) {
+            die("Vous devez préciser un paramètre `id` valide dans l'URL !");
+        }
+
+        /**
+         * 2. Récupération de l'arme en question
+         */
+        $weapon = $this->model->findOne($weapon_id);
+
+        /**
+         * 4. Affichage des données dans la vue
+         */
+        $pageTitle = $weapon['name'];
+
+        \Apps\Libs\Renderer::render('weapon-rental/show', compact('pageTitle', 'weapon', 'weapon_id'));
+
+        /** Note : 
+         * La fonction compact('pageTitle', 'weapon', 'weapon_id') 
+         * est équivalente à 
+         * ['pageTitle' => $pageTitle, 'weapon' => $weapon, 'weapon_id' => $weapon_id]
+         */
     }
-
-    // Si pas d'id valide, on arrête l'exécution
-    if (!$weapon_id) {
-        die("Vous devez préciser un paramètre `id` valide dans l'URL !");
-    }
-
-    /**
-     * 2. Récupération de l'arme en question
-     */
-    $weapon = $this->model->findOne($weapon_id);
-
-    /**
-     * 4. Affichage des données dans la vue
-     */
-    $pageTitle = $weapon['name'];
-
-    \Apps\Libs\Renderer::render('weapon-rental/show', compact('pageTitle', 'weapon', 'weapon_id'));
-
-    /** Note : 
-     * La fonction compact('pageTitle', 'weapon', 'weapon_id') 
-     * est équivalente à 
-     * ['pageTitle' => $pageTitle, 'weapon' => $weapon, 'weapon_id' => $weapon_id]
-     */
-}
-
 }

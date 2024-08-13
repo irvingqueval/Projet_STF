@@ -25,15 +25,8 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/index.php?controller=WeaponRentalController&?task=index">Weapon rental</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Discovery Pack
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Silver Pack</a></li>
-                            <li><a class="dropdown-item" href="#">Gold Pack</a></li>
-                            <li><a class="dropdown-item" href="#">Platinum Pack</a></li>
-                        </ul>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/index.php?controller=DiscoveryPackController&?task=index">Discovery Pack</a>
                     </li>
                 </ul>
             </div>
