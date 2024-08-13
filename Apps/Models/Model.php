@@ -2,7 +2,7 @@
 
 namespace Apps\Models;
 
-use Apps\Libs\Database;  // Utilisation correcte du namespace pour Database
+use Apps\Libs\Database;
 
 abstract class Model
 {
@@ -11,33 +11,57 @@ abstract class Model
 
     public function __construct()
     {
-        $this->pdo = Database::getPdo();  // Référence correcte à la classe Database
+        $this->pdo = Database::getPdo();
     }
 
-    public function findAll(?string $order = ""): array
+    public function findAll(array $conditions = [], ?string $order = ""): array
     {
-        $sql = "SELECT * FROM `{$this->table}` ";
-        if ($order) {
-            $sql .= "ORDER BY " . $order;
+        $sql = "SELECT * FROM `{$this->table}`";
+
+        if (!empty($conditions)) {
+            $clauses = [];
+            foreach ($conditions as $key => $value) {
+                $clauses[] = "`$key` = :$key";
+            }
+            $sql .= " WHERE " . implode(" AND ", $clauses);
         }
 
-        $resultats = $this->pdo->query($sql);
-        $results = $resultats->fetchAll();
+        if ($order) {
+            $sql .= " ORDER BY " . $order;
+        }
 
-        return $results;
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($conditions);
+
+        return $stmt->fetchAll();
     }
 
     public function findOne(int $id)
     {
         $query = $this->pdo->prepare("SELECT * FROM `{$this->table}` WHERE id = :id");
         $query->execute(['id' => $id]);
-        $item = $query->fetch();
-        return $item;
+        return $query->fetch();
     }
 
     public function delete(int $id): void
     {
         $query = $this->pdo->prepare("DELETE FROM `{$this->table}` WHERE id = :id");
         $query->execute(['id' => $id]);
+    }
+
+    public function insert(array $data): bool
+    {
+        $keys = array_keys($data);
+        $fields = "`" . implode("`, `", $keys) . "`";
+        $placeholders = ":" . implode(", :", $keys);
+
+        $sql = "INSERT INTO `{$this->table}` ($fields) VALUES ($placeholders)";
+        $stmt = $this->pdo->prepare($sql);
+
+        foreach ($data as $key => $value) {
+            $stmt->bindValue(":$key", $value);
+        }
+
+        return $stmt->execute();
     }
 }
