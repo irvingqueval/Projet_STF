@@ -2,8 +2,6 @@
 
 namespace Apps\Models;
 
-use Apps\Libs\Database;
-
 abstract class Model
 {
     protected $pdo;
@@ -11,7 +9,7 @@ abstract class Model
 
     public function __construct()
     {
-        $this->pdo = Database::getPdo();
+        $this->pdo = \Apps\Libs\Database::getPdo();
     }
 
     public function findAll(array $conditions = [], ?string $order = ""): array

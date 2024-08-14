@@ -2,12 +2,9 @@
 
 namespace Apps\Controllers;
 
-use Apps\Models\User;
-use Apps\Libs\Renderer;
-
 class AuthentificationController extends Controller
 {
-    protected $modelName = User::class;
+    protected $modelName = \Apps\Models\User::class;
 
     public function login()
     {
@@ -26,14 +23,14 @@ class AuthentificationController extends Controller
                 $_SESSION['is_admin'] = $user['is_admin'];
 
                 // Redirection vers la page de succès après la connexion
-                Renderer::render('auth/login_success', ['pageTitle' => 'Login Successful']);
+                \Apps\Libs\Renderer::render('auth/login_success', ['pageTitle' => 'Login Successful']);
                 return;
             } else {
                 $errorMessage = "Email ou mot de passe incorrect";
             }
         }
 
-        Renderer::render('auth/login', [
+        \Apps\Libs\Renderer::render('auth/login', [
             'pageTitle' => $pageTitle,
             'errorMessage' => $errorMessage ?? null
         ]);
@@ -63,13 +60,13 @@ class AuthentificationController extends Controller
                     $this->model->createUser($email, $hashedPassword, $age);
 
                     // Redirection vers la page de succès après l'inscription
-                    Renderer::render('auth/register_success', ['pageTitle' => 'Registration Successful']);
+                    \Apps\Libs\Renderer::render('auth/register_success', ['pageTitle' => 'Registration Successful']);
                     return;
                 }
             }
         }
 
-        Renderer::render('auth/register', [
+        \Apps\Libs\Renderer::render('auth/register', [
             'pageTitle' => $pageTitle,
             'errorMessage' => $errorMessage ?? null
         ]);
