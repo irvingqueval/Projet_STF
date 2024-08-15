@@ -17,7 +17,6 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <!-- Menu de navigation principal -->
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/index.php?controller=HomeController">Home</a>
@@ -28,11 +27,18 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/index.php?controller=DiscoveryPackController&task=index">Discovery Pack</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/index.php?controller=ReservationController&task=viewHistory">Reservation History</a>
+                    </li>
                 </ul>
 
                 <ul class="navbar-nav ms-auto">
                     <?php if (isset($_SESSION['user_id'])): ?>
-                        <!-- Affichage de l'email et du logo de déconnexion si l'utilisateur est connecté -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="/index.php?controller=ReservationController&task=viewCart">
+                                <img src="/assets/logo/cart.webp" alt="Cart" width="30" height="30">
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <span class="navbar-text me-2">
                                 <?= htmlspecialchars($_SESSION['email']) ?>
@@ -40,18 +46,18 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/index.php?controller=AuthentificationController&task=logout">
-                                <img src="/assets/logo/Logout.webp" alt="Logout" width="30" height="30">
+                                <img src="/assets/logo/logout.webp" alt="Logout" width="30" height="30">
                             </a>
                         </li>
                     <?php else: ?>
-                        <!-- Logo de connexion si l'utilisateur n'est pas connecté -->
                         <li class="nav-item">
                             <a class="nav-link" href="/index.php?controller=AuthentificationController&task=login">
-                                <img src="/assets/logo/connexion.webp" alt="Login" width="30" height="30">
+                                <img src="/assets/logo/login.webp" alt="Login" width="30" height="30">
                             </a>
                         </li>
                     <?php endif; ?>
                 </ul>
+
             </div>
         </div>
     </nav>
@@ -64,7 +70,6 @@
         </div>
     </footer>
 
-    <!-- Inclusion du fichier JavaScript -->
     <script src="/assets/js/scripts.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>

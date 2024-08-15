@@ -18,11 +18,10 @@ class AuthentificationController extends Controller
 
             if ($user && $this->model->verifyPassword($password, $user['password'])) {
                 $_SESSION['user_id'] = $user['ID'];
-                $_SESSION['email'] = $user['email'];  // Stocker l'email dans la session
+                $_SESSION['email'] = $user['email'];
                 $_SESSION['is_member'] = $user['is_member'];
                 $_SESSION['is_admin'] = $user['is_admin'];
 
-                // Redirection vers la page de succès après la connexion
                 \Apps\Libs\Renderer::render('auth/login_success', ['pageTitle' => 'Login Successful']);
                 return;
             } else {
@@ -59,7 +58,6 @@ class AuthentificationController extends Controller
                     $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
                     $this->model->createUser($email, $hashedPassword, $age);
 
-                    // Redirection vers la page de succès après l'inscription
                     \Apps\Libs\Renderer::render('auth/register_success', ['pageTitle' => 'Registration Successful']);
                     return;
                 }
@@ -72,10 +70,9 @@ class AuthentificationController extends Controller
         ]);
     }
 
-
     public function logout()
     {
-        // Détruire la session pour déconnecter l'utilisateur
+        // Destroy session to disconnect user
         session_destroy();
         header('Location: index.php?controller=AuthentificationController&task=login');
         exit;
