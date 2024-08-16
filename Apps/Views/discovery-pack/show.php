@@ -8,6 +8,7 @@
             <p class="lead"><strong>Price:</strong> $<?= number_format($discoveryPack['price'], 2) ?></p>
             <p><strong>Duration:</strong> <?= htmlspecialchars($discoveryPack['duration']) ?> minutes</p>
             <p><?= nl2br(htmlspecialchars($discoveryPack['description'])) ?></p>
+            <a href="index.php?controller=DiscoveryPackController&task=index" class="btn btn-primary">Back to Packs</a>
             <form method="POST" action="index.php?controller=ReservationController&task=addDiscoveryPackToCart">
                 <input type="hidden" name="discovery_pack_id" value="<?= $discoveryPack['ID'] ?>">
                 <div class="mb-3">
@@ -18,9 +19,8 @@
                     <label for="hour" class="form-label">Select Time:</label>
                     <input type="time" id="hour" name="hour" class="form-control" required>
                 </div>
-                <button type="submit" class="btn btn-primary">Reserve this Pack</button>
+                <button type="submit" class="btn btn-success">Reserve this Pack</button>
             </form>
-            <a href="index.php?controller=DiscoveryPackController&task=index" class="btn btn-secondary mt-3">Back to Packs</a>
         </div>
     </div>
 </div>

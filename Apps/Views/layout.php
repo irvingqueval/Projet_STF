@@ -10,69 +10,73 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/index.php?controller=HomeController">STF</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/index.php?controller=HomeController">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/index.php?controller=WeaponRentalController&task=index">Weapon Rental</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/index.php?controller=DiscoveryPackController&task=index">Discovery Pack</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/index.php?controller=ReservationController&task=viewHistory">Reservation History</a>
-                    </li>
+    <div class="wrapper">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/index.php?controller=HomeController">STF</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/index.php?controller=HomeController">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/index.php?controller=WeaponRentalController&task=index">Weapon Rental</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/index.php?controller=DiscoveryPackController&task=index">Discovery Pack</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/index.php?controller=ReservationController&task=viewHistory">Reservation History</a>
+                        </li>
 
-                    <?php if (isset($_SESSION['user_id'])): ?>
-                        <?php if ($_SESSION['is_admin']): ?>
+                        <?php if (isset($_SESSION['user_id'])): ?>
+                            <?php if ($_SESSION['is_admin']): ?>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/index.php?controller=AdminPanelController&task=index">Administration panel</a>
+                                </li>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    </ul>
+
+                    <ul class="navbar-nav ms-auto">
+                        <?php if (isset($_SESSION['user_id'])): ?>
                             <li class="nav-item">
-                                <a class="nav-link" href="/index.php?controller=AdminPanelController&task=index">Administration panel</a>
+                                <a class="nav-link" href="/index.php?controller=ReservationController&task=viewCart">
+                                    <img src="/assets/logo/cart.webp" alt="Cart" width="30" height="30">
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <span class="navbar-text me-2">
+                                    <?= htmlspecialchars($_SESSION['email']) ?>
+                                </span>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/index.php?controller=AuthentificationController&task=logout">
+                                    <img src="/assets/logo/logout.webp" alt="Logout" width="30" height="30">
+                                </a>
+                            </li>
+                        <?php else: ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/index.php?controller=AuthentificationController&task=login">
+                                    <img src="/assets/logo/login.webp" alt="Login" width="30" height="30">
+                                </a>
                             </li>
                         <?php endif; ?>
-                    <?php endif; ?>
-                </ul>
+                    </ul>
 
-                <ul class="navbar-nav ms-auto">
-                    <?php if (isset($_SESSION['user_id'])): ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/index.php?controller=ReservationController&task=viewCart">
-                                <img src="/assets/logo/cart.webp" alt="Cart" width="30" height="30">
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <span class="navbar-text me-2">
-                                <?= htmlspecialchars($_SESSION['email']) ?>
-                            </span>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/index.php?controller=AuthentificationController&task=logout">
-                                <img src="/assets/logo/logout.webp" alt="Logout" width="30" height="30">
-                            </a>
-                        </li>
-                    <?php else: ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/index.php?controller=AuthentificationController&task=login">
-                                <img src="/assets/logo/login.webp" alt="Login" width="30" height="30">
-                            </a>
-                        </li>
-                    <?php endif; ?>
-                </ul>
-
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
 
-    <?= $pageContent ?>
+        <main>
+            <?= $pageContent ?>
+        </main>
+    </div>
 
-    <footer class="bg-dark text-white text-center py-3">
+    <footer>
         <div class="container">
             <p>&copy; 2023 Société de Tir de Farmoutier. All rights reserved.</p>
         </div>

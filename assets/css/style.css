@@ -1,9 +1,23 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
+
 .hero-section {
     position: relative;
-    /* Important for positioning the pseudo-element */
     height: 100vh;
     overflow: hidden;
-    /* Ensures that the pseudo-element does not overflow the section */
 }
 
 .hero-section::before {
@@ -15,68 +29,44 @@
     bottom: 0;
     background: url('../images/bg.webp') no-repeat center center/cover;
     filter: brightness(65%);
-    /* Apply filter here */
     z-index: -1;
-    /* Ensures that the pseudo-element remains in the background */
 }
 
 .header-custom {
     position: relative;
-    /* Make sure the text is above the pseudo-element */
     padding-top: 35vh;
     color: #FFFFFF;
     z-index: 1;
-    /* Make sure the text stays above the background */
 }
 
-
-.about-us-section {
+.about-us-section, .facilities-section {
     background-color: #f8f9fa;
     color: #333;
+    padding: 2rem 1rem;
 }
 
-.about-us-section h2 {
+.about-us-section h2, .facilities-section h2 {
     color: #0056b3;
-    /* Dark blue to fit the shooting range theme */
 }
 
-.about-us-section h3 {
+.about-us-section h3, .facilities-section h3 {
     color: #007bff;
-    /* Bootstrap primary blue for headers */
 }
 
-.about-us-section p {
-    font-size: 16px;
-    line-height: 1.6;
-}
-
-.facilities-section {
-    background-color: #f8f9fa;
-    color: #333;
-}
-
-.facilities-section h2 {
-    color: #0056b3;
-    /* Dark blue to fit the shooting range theme */
-}
-
-.facilities-section h3 {
-    color: #007bff;
-    /* Bootstrap primary blue for headers */
-}
-
-.facilities-section p {
+.about-us-section p, .facilities-section p {
     font-size: 16px;
     line-height: 1.6;
 }
 
 .facilities-section .col-md-6 {
     margin-bottom: 20px;
-    /* Provides spacing between columns */
 }
-
 
 footer {
     background-color: #212529;
     color: white;
+    text-align: center;
+    padding: 0.5rem 0;
+    font-size: 0.875rem;
+    width: 100%;
 }
