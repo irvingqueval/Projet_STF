@@ -15,7 +15,7 @@ abstract class Controller
             }
             $this->model = new $this->modelName();
         } else {
-            $this->model = null;  // No template required
+            $this->model = null;
         }
     }
 }

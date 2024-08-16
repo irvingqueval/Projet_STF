@@ -62,4 +62,23 @@ abstract class Model
 
         return $stmt->execute();
     }
+
+    public function update(int $id, array $data): bool
+    {
+        $fields = [];
+        foreach ($data as $key => $value) {
+            $fields[] = "`$key` = :$key";
+        }
+        $fieldsList = implode(', ', $fields);
+
+        $sql = "UPDATE `{$this->table}` SET $fieldsList WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+
+        foreach ($data as $key => $value) {
+            $stmt->bindValue(":$key", $value);
+        }
+        $stmt->bindValue(':id', $id, \PDO::PARAM_INT);
+
+        return $stmt->execute();
+    }
 }

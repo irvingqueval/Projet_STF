@@ -9,7 +9,7 @@ class User extends Model
     public function findUserByEmail($email)
     {
         $results = $this->findAll(['email' => $email]);
-        return !empty($results) ? $results[0] : null; // Retourner le premier résultat ou null si non trouvé
+        return !empty($results) ? $results[0] : null; // Return the first result or null if not found
     }
 
     public function verifyPassword($inputPassword, $hashedPassword)
