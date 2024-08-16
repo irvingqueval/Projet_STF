@@ -30,12 +30,14 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/index.php?controller=ReservationController&task=viewHistory">Reservation History</a>
                     </li>
-                    <?php if ($user->isAdmin()) : ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="admin_panel.php">Panneau d'administration</a>
-                        </li>
-                    <?php endif; ?>
 
+                    <?php if (isset($_SESSION['user_id'])): ?>
+                        <?php if ($_SESSION['is_admin']): ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/index.php?controller=AdminPanelController&task=index">Administration panel</a>
+                            </li>
+                        <?php endif; ?>
+                    <?php endif; ?>
                 </ul>
 
                 <ul class="navbar-nav ms-auto">
