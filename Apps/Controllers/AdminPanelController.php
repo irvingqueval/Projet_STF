@@ -47,8 +47,8 @@ class AdminPanelController
                 $this->weaponRentalModel->insert($data);
 
                 \Apps\Libs\Renderer::render('admin-panel/success', [
-                    'pageTitle' => 'Arme ajoutée',
-                    'message' => "L'arme a été ajoutée avec succès.",
+                    'pageTitle' => 'Added weapon',
+                    'message' => "The weapon has been successfully added.",
                     'redirectUrl' => '/index.php?controller=AdminPanelController&task=index'
                 ]);
                 return;
