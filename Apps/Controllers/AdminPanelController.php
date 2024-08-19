@@ -26,7 +26,7 @@ class AdminPanelController
     // Add a new weapon
     public function addWeapon()
     {
-        $pageTitle = "Admin Panel - Ajouter une arme";
+        $pageTitle = "Admin Panel - Add a weapon";
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = $_POST;
@@ -53,7 +53,7 @@ class AdminPanelController
                 ]);
                 return;
             } else {
-                echo "Erreur de téléchargement de l'image.";
+                echo "Image download error.";
             }
         }
 
@@ -64,7 +64,7 @@ class AdminPanelController
     // Modification of an existing weapon
     public function editWeapon(int $id)
     {
-        $pageTitle = "Admin Panel - Modifier une arme";
+        $pageTitle = "Admin Panel - Modifying a weapon";
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = $_POST;
@@ -86,7 +86,7 @@ class AdminPanelController
                 if (move_uploaded_file($image['tmp_name'], $target_file)) {
                     $data['image'] = $relative_path;
                 } else {
-                    echo "Erreur de téléchargement de l'image.";
+                    echo "Image download error.";
                     return;
                 }
             } else {
@@ -97,8 +97,8 @@ class AdminPanelController
             $this->weaponRentalModel->update($id, $data);
 
             \Apps\Libs\Renderer::render('admin-panel/success', [
-                'pageTitle' => 'Arme modifiée',
-                'message' => "L'arme a été modifiée avec succès.",
+                'pageTitle' => 'Modified weapon',
+                'message' => "The weapon has been successfully modified.",
                 'redirectUrl' => '/index.php?controller=AdminPanelController&task=index'
             ]);
             return;
@@ -116,8 +116,8 @@ class AdminPanelController
         $this->weaponRentalModel->delete($id);
 
         \Apps\Libs\Renderer::render('admin-panel/success', [
-            'pageTitle' => 'Arme supprimée',
-            'message' => "L'arme a été supprimée avec succès.",
+            'pageTitle' => 'Weapon deleted',
+            'message' => "The weapon has been successfully suppressed.",
             'redirectUrl' => '/index.php?controller=AdminPanelController&task=index'
         ]);
     }
@@ -125,7 +125,7 @@ class AdminPanelController
     // Addition of a new discovery pack
     public function addDiscoveryPack()
     {
-        $pageTitle = "Admin Panel - Ajouter un pack découverte";
+        $pageTitle = "Admin Panel - Add a discovery pack";
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = $_POST;
@@ -146,13 +146,13 @@ class AdminPanelController
                 $this->discoveryPackModel->insert($data);
 
                 \Apps\Libs\Renderer::render('admin-panel/success', [
-                    'pageTitle' => 'Pack découverte ajouté',
-                    'message' => "Le pack découverte a été ajouté avec succès.",
+                    'pageTitle' => 'Discovery pack added',
+                    'message' => "The discovery pack has been successfully added.",
                     'redirectUrl' => '/index.php?controller=AdminPanelController&task=index'
                 ]);
                 return;
             } else {
-                echo "Erreur de téléchargement de l'image.";
+                echo "Image download error.";
             }
         }
 
@@ -163,7 +163,7 @@ class AdminPanelController
     // Modification of an existing discovery pack
     public function editDiscoveryPack(int $id)
     {
-        $pageTitle = "Admin Panel - Modifier un pack découverte";
+        $pageTitle = "Admin Panel - Modifying a discovery pack";
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = $_POST;
@@ -185,7 +185,7 @@ class AdminPanelController
                 if (move_uploaded_file($image['tmp_name'], $target_file)) {
                     $data['image'] = $relative_path;
                 } else {
-                    echo "Erreur de téléchargement de l'image.";
+                    echo "Image download error.";
                     return;
                 }
             } else {
@@ -196,8 +196,8 @@ class AdminPanelController
             $this->discoveryPackModel->update($id, $data);
 
             \Apps\Libs\Renderer::render('admin-panel/success', [
-                'pageTitle' => 'Pack découverte modifié',
-                'message' => "Le pack découverte a été modifié avec succès.",
+                'pageTitle' => 'Modified discovery pack',
+                'message' => "The discovery pack has been successfully modified.",
                 'redirectUrl' => '/index.php?controller=AdminPanelController&task=index'
             ]);
             return;
@@ -215,8 +215,8 @@ class AdminPanelController
         $this->discoveryPackModel->delete($id);
 
         \Apps\Libs\Renderer::render('admin-panel/success', [
-            'pageTitle' => 'Pack découverte supprimé',
-            'message' => "Le pack découverte a été supprimé avec succès.",
+            'pageTitle' => 'Discovery pack no longer available',
+            'message' => "The discovery pack has been successfully removed.",
             'redirectUrl' => '/index.php?controller=AdminPanelController&task=index'
         ]);
     }

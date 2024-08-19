@@ -27,7 +27,7 @@ class DiscoveryPackController extends Controller
         }
 
         if (!$discoveryPack_id) {
-            die("Vous devez préciser un paramètre `id` valide dans l'URL !");
+            die("You must specify a valid `id` parameter in the URL!");
         }
 
         $discoveryPack = $this->model->findOne($discoveryPack_id);

@@ -25,7 +25,7 @@ class AuthentificationController extends Controller
                 \Apps\Libs\Renderer::render('auth/login_success', ['pageTitle' => 'Login Successful']);
                 return;
             } else {
-                $errorMessage = "Email ou mot de passe incorrect";
+                $errorMessage = "Incorrect email or password";
             }
         }
 
@@ -47,13 +47,13 @@ class AuthentificationController extends Controller
             $age = $_POST['age'];
 
             if ($password !== $confirmPassword) {
-                $errorMessage = "Les mots de passe ne correspondent pas.";
+                $errorMessage = "The passwords do not match.";
             } elseif (!ctype_digit($age) || $age < 18) {
-                $errorMessage = "Vous devez avoir 18 ans ou plus pour vous inscrire.";
+                $errorMessage = "You must be 18 or over to register.";
             } else {
                 $existingUser = $this->model->findUserByEmail($email);
                 if ($existingUser) {
-                    $errorMessage = "Cet email est déjà utilisé.";
+                    $errorMessage = "This email is already in use.";
                 } else {
                     $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
                     $this->model->createUser($email, $hashedPassword, $age);
