@@ -1,27 +1,34 @@
 <div class="container mt-5">
     <h1 class="text-center mb-3">Your Cart</h1>
 
+    <!-- Section for Discovery Pack Reservations -->
     <h2>Discovery Pack Reservations</h2>
     <?php if (empty($discoveryPackReservations)): ?>
         <p>No discovery pack reservations in your cart.</p>
     <?php else: ?>
-        <ul class="list-group">
-            <?php foreach ($discoveryPackReservations as $reservation): ?>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <span><?= htmlspecialchars($reservation['name']) ?> - <?= htmlspecialchars($reservation['date']) ?> at <?= htmlspecialchars($reservation['hour']) ?></span>
-                    <span>$<?= htmlspecialchars($reservation['price'] ?? '0.00') ?></span>
-                    <input type="hidden" class="reservation-price" value="<?= htmlspecialchars($reservation['price'] ?? '0.00') ?>">
-                    <a href="index.php?controller=ReservationController&task=deleteReservation&id=<?= $reservation['discovery_pack_id'] ?>&type=discovery_pack" class="btn btn-danger btn-sm">Remove</a>
-                </li>
-            <?php endforeach; ?>
-        </ul>
+        <form method="POST" action="index.php?controller=ReservationController&task=processDiscoveryPacks">
+            <ul class="list-group">
+                <?php foreach ($discoveryPackReservations as $reservation): ?>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span><?= htmlspecialchars($reservation['name']) ?> - <?= htmlspecialchars($reservation['date']) ?> at <?= htmlspecialchars($reservation['hour']) ?></span>
+                        <span>$<?= htmlspecialchars($reservation['price'] ?? '0.00') ?></span>
+                        <input type="hidden" class="reservation-price" value="<?= htmlspecialchars($reservation['price'] ?? '0.00') ?>">
+                        <a href="index.php?controller=ReservationController&task=deleteReservation&id=<?= $reservation['discovery_pack_id'] ?>&type=discovery_pack" class="btn btn-danger btn-sm">Remove</a>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-success">Confirm Discovery Pack Reservations</button>
+            </div>
+        </form>
     <?php endif; ?>
 
+    <!-- Weapon Reservations section -->
     <h2 class="mt-4">Weapon Reservations</h2>
     <?php if (empty($weaponReservations)): ?>
         <p>No weapon reservations in your cart.</p>
     <?php else: ?>
-        <form method="POST" action="index.php?controller=ReservationController&task=processCart">
+        <form method="POST" action="index.php?controller=ReservationController&task=processWeapons">
             <ul class="list-group">
                 <?php foreach ($weaponReservations as $reservation): ?>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -66,12 +73,9 @@
                     </li>
                 <?php endforeach; ?>
             </ul>
-
             <div class="text-center mt-4">
-                <h3>Total Price: <span id="total-price">$0.00</span></h3>
+                <button type="submit" class="btn btn-success">Confirm Weapon Reservations</button>
             </div>
-
-            <button type="submit" class="btn btn-success mt-3">Confirm and Reserve</button>
         </form>
     <?php endif; ?>
 
