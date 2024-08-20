@@ -110,8 +110,37 @@ class ReservationController extends Controller
         ]);
     }
 
-    // Process the cart and make reservations
-    public function processCart()
+    // Process Discovery Pack reservations in the cart
+    public function processDiscoveryPacks()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $userId = $_SESSION['user_id'];
+
+            // Process reservations for discovery packs
+            if (isset($_SESSION['cart']['discovery_packs'])) {
+                foreach ($_SESSION['cart']['discovery_packs'] as $reservation) {
+                    $this->discoveryPackModel->createReservation(
+                        $userId,
+                        $reservation['discovery_pack_id'],
+                        $reservation['date'],
+                        $reservation['hour']
+                    );
+                }
+
+                // Remove Discovery Packs from cart after reservation confirmation
+                unset($_SESSION['cart']['discovery_packs']);
+            }
+
+            // Redirect to success page
+            header('Location: index.php?controller=ReservationController&task=cartSuccess');
+            exit();
+        } else {
+            echo "No POST data received.<br>";
+        }
+    }
+
+    // Process Weapon reservations in the cart
+    public function processWeapons()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userId = $_SESSION['user_id'];
@@ -125,7 +154,7 @@ class ReservationController extends Controller
                     $ammoPrice = $this->calculateAmmoPrice($reservation['weapon_caliber'], $ammoBoxes);
                     $totalPrice = $reservation['price'] + $ammoPrice;
 
-                    // insert reservation into database
+                    // Insert reservation into database
                     $this->weaponModel->createReservation(
                         $userId,
                         $weaponId,
@@ -135,22 +164,10 @@ class ReservationController extends Controller
                         $totalPrice
                     );
                 }
-            }
 
-            // Process reservations for discovery packs
-            if (isset($_SESSION['cart']['discovery_packs'])) {
-                foreach ($_SESSION['cart']['discovery_packs'] as $reservation) {
-                    $this->discoveryPackModel->createReservation(
-                        $userId,
-                        $reservation['discovery_pack_id'],
-                        $reservation['date'],
-                        $reservation['hour']
-                    );
-                }
+                // Remove Weapons from cart after reservation confirmation
+                unset($_SESSION['cart']['weapons']);
             }
-
-            // Empty the cart after reservation confirmation
-            unset($_SESSION['cart']);
 
             // Redirect to success page
             header('Location: index.php?controller=ReservationController&task=cartSuccess');
